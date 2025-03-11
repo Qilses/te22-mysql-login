@@ -1,0 +1,8 @@
+** start up cmd **
+    npm init -y 
+    npm nodemon -D
+    cat package.json
+    npm i express dotenv nunjucks mysql2 body-parser 
+
+
+
