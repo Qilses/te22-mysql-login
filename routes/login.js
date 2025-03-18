@@ -13,7 +13,7 @@ router.post("/", async (req, res) => {
     const { email, password } = req.body;
     // Hämta användare från databasen
     const [users] = await pool.promise().query(
-        "SELECT * FROM user-login WHERE name = namnfrånformulär"
+        "SELECT * FROM user-login WHERE name = user_name"
 
 
     );
@@ -29,7 +29,8 @@ bcrypt.hash(user_password, 10, function(err, hash) {
 
 router.post("/dashboard", (req, res) => {
     res.render("dashboard.njk", {
-        title: "blabago"
+        title: "blabago",
+        
     })
 });
 export default router

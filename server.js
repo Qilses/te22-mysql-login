@@ -4,7 +4,7 @@ import nunjucks from "nunjucks";
 import bodyParser from "body-parser";
 import morgan from "morgan";
 import loginRouter from "./routes/login.js";
-import session from "express"
+import session from "express-session"
 
 const app = express();
 const port = 3000;
@@ -15,6 +15,12 @@ app.use(express.static("public"));
 app.use(morgan("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(session({
+  secret: "keyboard cat",
+  resave: false,
+  saveUninitialized: true,
+  cookie: { sameSite: true },
+}))
 
 nunjucks.configure("views", {
   autoescape: true,
@@ -27,6 +33,7 @@ app.get("/", async (req, res) => {
   } else {
     req.session.views = 1
   }
+
   res.render("login.njk", {
     title: "Logga in!",
     message: "Skriv in ditt användarnamn, email och lösenord för att logga in",
@@ -36,13 +43,6 @@ app.get("/", async (req, res) => {
 
 // Säger till servern att den ska använda routes-mappen
 app.use("/login", loginRouter);
-
-app.use(session({
-  secret: "keyboard cat",
-  resave: false,
-  saveUninitialized: true,
-  cookie: { sameSite: true },
-}))
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
