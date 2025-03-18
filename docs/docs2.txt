@@ -1,3 +1,31 @@
 2025-03-18
 
-****
+**Nya Saker**
+npm i bcrypt
+    Installerar alla bcrypt paket
+
+//he allt under till async. Står det enlight https://www.npmjs.com/package/bcrypt
+    const bcrypt = require('bcrypt');
+    const saltRounds = 10;
+    const myPlaintextPassword = 's0/\/\P4$$w0rD';
+    const someOtherPlaintextPassword = 'not_bacon';
+
+För att hasha ett password, finns olika sätt men detta står i länken
+
+    bcrypt.genSalt(saltRounds, function(err, salt) {
+    bcrypt.hash(myPlaintextPassword, salt, function(err, hash) {
+        // Store hash in your password DB.
+    });
+});
+
+// Load hash from your password DB.
+bcrypt.compare(myPlaintextPassword, hash, function(err, result) {
+    // result == true
+});
+bcrypt.compare(someOtherPlaintextPassword, hash, function(err, result) {
+    // result == false
+});
+
+
+**Saker att inte göra**
+Inte ha text fält för att de kan vara förlångt namn.

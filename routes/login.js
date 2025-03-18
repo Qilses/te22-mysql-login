@@ -12,7 +12,8 @@ router.post("/", async (req, res) => {
     try {
         // Hämta användare från databasen
         const [users] = await pool.promise().query(
-            "SELECT * FROM user WHERE email = ?",
+            'SELECT * FROM password WHERE username'
+            ,
             [email]
         );
 

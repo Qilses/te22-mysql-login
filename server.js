@@ -3,7 +3,7 @@ import express from "express"
 import nunjucks from "nunjucks"
 import bodyParser from "body-parser"
 import morgan from "morgan"
-  
+
 import loginRouter from "./routes/login.js"
 
 const app = express()
@@ -27,8 +27,12 @@ nunjucks.configure('views', {
 
 app.get("/", async (req, res) => {
   res.render("login.njk", {
-    title: "Loga in!", 
-    message: "Skriv in ditt andvändar namn, email och lössenord för att loga in"
+    title: "Loga in!",
+    message: "Skriv in ditt andvändar namn, email och lössenord för att loga in",
+    const bcrypt = require('bcrypt'),
+    const saltRounds = 10;
+    const myPlaintextPassword = 's0/\/\P4$$w0rD';
+    const someOtherPlaintextPassword = 'not_bacon';
   })
 })
 
