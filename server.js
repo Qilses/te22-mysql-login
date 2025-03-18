@@ -1,45 +1,42 @@
-import "dotenv/config"
-import express from "express"
-import nunjucks from "nunjucks"
-import bodyParser from "body-parser"
-import morgan from "morgan"
+import "dotenv/config";
+import express from "express";
+import nunjucks from "nunjucks";
+import bodyParser from "body-parser";
+import morgan from "morgan";
+import bcrypt from "bcrypt";
+import loginRouter from "./routes/login.js";
 
-import loginRouter from "./routes/login.js"
+const app = express();
+const port = 3000;
+const saltRounds = 10;
 
-const app = express()
-const port = 3000
-
-//säger till att sevrver kan andvända sig av ditt och datt mappar
-app.use(express.static("public"))
-
-
-app.use(morgan("dev"))
+// Säger till att servern kan använda sig av olika mappar
+app.use(express.static("public"));
+app.use(morgan("dev"));
 app.use(bodyParser.json());
-app.use(express.static("public"))
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.urlencoded({ extended: true }));
 
-
-nunjucks.configure('views', {
+nunjucks.configure("views", {
   autoescape: true,
   express: app,
-})
-
+});
 
 app.get("/", async (req, res) => {
+  const textPassword = "robin";
+  
+  const hashpassword = bcrypt.hash(textPassword, saltRounds);
+  console.log(hashpassword, hashpassword.length);
+
+
   res.render("login.njk", {
-    title: "Loga in!",
-    message: "Skriv in ditt andvändar namn, email och lössenord för att loga in",
-    const bcrypt = require('bcrypt'),
-    const saltRounds = 10;
-    const myPlaintextPassword = 's0/\/\P4$$w0rD';
-    const someOtherPlaintextPassword = 'not_bacon';
-  })
-})
+    title: "Logga in!",
+    message: "Skriv in ditt användarnamn, email och lösenord för att logga in",
+  });
+});
 
-//säger till servern att den ska andvända routes mappen
-
-app.use("/login", loginRouter)
+// Säger till servern att den ska använda routes-mappen
+app.use("/login", loginRouter);
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
-})
+  console.log(`Example app listening at http://localhost:${port}`);
+});
