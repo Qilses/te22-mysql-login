@@ -29,3 +29,9 @@ bcrypt.compare(someOtherPlaintextPassword, hash, function(err, result) {
 
 **Saker att inte göra**
 Inte ha text fält för att de kan vara förlångt namn.
+
+
+**SKA göra**
+
+måste fixa validering av lössenord
+Göra om post delen av login sedan om mer tid fixa läggtill andvändare!
