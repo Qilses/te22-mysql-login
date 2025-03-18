@@ -11,7 +11,7 @@ router.post("/", async (req, res) => {
     const { email, password } = req.body;
     // Hämta användare från databasen
     const [users] = await pool.promise().query(
-        'SELECT password FROM user-login WHERE user_name'
+        'SELECT password_hash FROM user-login WHERE user_name'
 
     );
 })

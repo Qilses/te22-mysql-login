@@ -23,9 +23,8 @@ nunjucks.configure("views", {
 
 app.get("/", async (req, res) => {
   const textPassword = "robin";
-  
-  const hashpassword = bcrypt.hash(textPassword, saltRounds);
-  console.log(hashpassword, hashpassword.length);
+
+  const password_hash = bcrypt.hash(textPassword, saltRounds);
 
 
   res.render("login.njk", {
