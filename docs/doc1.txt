@@ -1,8 +1,12 @@
+2025-03-11
+
 ** start up cmd **
     npm init -y 
     npm nodemon -D
     cat package.json
-    npm i express dotenv nunjucks mysql2 body-parser 
+    npm i express dotenv nunjucks mysql2 body-parser
+
+    *npm i är samma sak som npm install*
 
 
 
