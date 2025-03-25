@@ -10,27 +10,35 @@ router.use(express.urlencoded({ extended: true }))
 
 //routes här under 
 router.post("/", async (req, res) => {
-    const { email, password } = req.body;
+
+    console.log(req.body)
+
+    const { name, password } = req.body;
+
     // Hämta användare från databasen
     const [users] = await pool.promise().query(
-        "SELECT * FROM user-login WHERE name = user_name"
-
+        ` 
+        SELECT * FROM users_login
+        WHERE user_name = ?` ,[name]
 
     );
-})
-let user_password = "robin"
-bcrypt.hash(user_password, 10, function(err, hash) {
-	// här får vi nu tag i lösenordets hash i variabeln hash
-	console.log(hash)
+    
+    res.redirect("/")
 })
 
+router.get("/test", (req,res) => {
+    let user_password = "robin"
+    bcrypt.hash(user_password, 10, function (err, hash) {
+        // här får vi nu tag i lösenordets hash i variabeln hash
+        console.log(hash)
+    })
 
-  
+})
 
-router.post("/dashboard", (req, res) => {
+router.get("/dashboard", (req, res) => {
     res.render("dashboard.njk", {
         title: "blabago",
-        
+
     })
 });
 export default router
