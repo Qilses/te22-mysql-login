@@ -12,21 +12,26 @@ router.post("/", async (req, res) => {
     const { username, password } = req.body;
 
     // Hämta användare från databasen
-    const [users] = await pool.promise().query(
+    const [result] = await pool.promise().query(
         ` 
         SELECT * FROM users_login
         WHERE user_name = ?` , [username]
 
     );
 
-    console.log(users)
+    console.log(result[0].password)
+   
 
     // Load hash from your password DB.
-    bcrypt.compare(password, user_password, function (err, result) {
-        console.logI("JIPPY")
+    bcrypt.compare(password, result[0].password, function (err, result) {
+        if (result == true) {
+            console.log("JIPPY");
+        }
     });
-    bcrypt.compare(someOtherPlaintextPassword, hash, function (err, result) {
-        console.log(":C")
+
+
+    bcrypt.compare(!password,!result[0].password, function (err, result) {
+        if(result == false) {console.log(":C")}
     });
 
 })

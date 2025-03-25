@@ -37,6 +37,7 @@ app.get("/", async (req, res) => {
     req.session.views = 1
   }
   console.log(req.session.views)
+  
   res.render("login.njk", {
     title: "Logga in!",
     message: "Skriv in ditt användarnamn, email och lösenord för att logga in",
