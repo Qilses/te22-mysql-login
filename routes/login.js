@@ -5,28 +5,33 @@ import bcrypt from "bcrypt"
 
 const router = express.Router()
 
-//bearbetar posten vi får av login, och skyddar datan mellan andvändaren och severn. aka middleware. 
-router.use(express.urlencoded({ extended: true }))
 
 //routes här under 
 router.post("/", async (req, res) => {
-
     console.log(req.body)
-
-    const { name, password } = req.body;
+    const { username, password } = req.body;
 
     // Hämta användare från databasen
     const [users] = await pool.promise().query(
         ` 
         SELECT * FROM users_login
-        WHERE user_name = ?` ,[name]
+        WHERE user_name = ?` , [username]
 
     );
-    
-    res.redirect("/")
+
+    console.log(users)
+
+    // Load hash from your password DB.
+    bcrypt.compare(password, user_password, function (err, result) {
+        console.logI("JIPPY")
+    });
+    bcrypt.compare(someOtherPlaintextPassword, hash, function (err, result) {
+        console.log(":C")
+    });
+
 })
 
-router.get("/test", (req,res) => {
+router.get("/test", (req, res) => {
     let user_password = "robin"
     bcrypt.hash(user_password, 10, function (err, hash) {
         // här får vi nu tag i lösenordets hash i variabeln hash

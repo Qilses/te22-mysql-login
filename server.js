@@ -5,7 +5,6 @@ import bodyParser from "body-parser";
 import morgan from "morgan";
 import loginRouter from "./routes/login.js";
 import session from "express-session"
-import pool from "./db.js";
 
 const app = express();
 const port = 3000;
@@ -16,13 +15,14 @@ app.use(express.static("public"));
 app.use(morgan("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-//kolla up detta
+//cookies
 app.use(session({
-  secret: "keyboard cat",
+  secret: `keyboard cat`,
   resave: false,
   saveUninitialized: true,
-  cookie: { sameSite: true },
+  cookie: { sameSite: true }
 }))
+
 
 nunjucks.configure("views", {
   autoescape: true,
@@ -30,38 +30,25 @@ nunjucks.configure("views", {
 });
 
 app.get("/", async (req, res) => {
-  res.render("login.njk", {
-    title: "Logga in!",
-    message: "Skriv in ditt användarnamn, email och lösenord för att logga in",
-  });
-
-//cookies
+  //cookies
   if (req.session.views) {
     req.session.views++
   } else {
     req.session.views = 1
   }
+  console.log(req.session.views)
+  res.render("login.njk", {
+    title: "Logga in!",
+    message: "Skriv in ditt användarnamn, email och lösenord för att logga in",
+  });
+
+
 });
-app.post("/", async (req, res) => {
 
-  console.log(req.body)
-
-  const { name, password } = req.body;
-
-  // Hämta användare från databasen
-  const [users] = await pool.promise().query(
-      ` 
-      SELECT * FROM users_login
-      WHERE user_name = ?` ,[name]
-
-  );
-  
-  res.redirect("/")
-})
 
 // Säger till servern att den ska använda routes-mappen
 app.use("/login", loginRouter);
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+  console.log(` app listening at http://localhost:${port}`);
 });

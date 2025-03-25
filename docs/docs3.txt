@@ -1,2 +1,6 @@
 2025-03-25
+
+    **bort stoppade saker till senare**
             //<input type="email" name="email" placeholder="Email" required>
+            //bearbetar posten vi får av login, och skyddar datan mellan andvändaren och severn. aka middleware. 
+            router.use(express.urlencoded({ extended: true }))
