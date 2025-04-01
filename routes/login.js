@@ -19,20 +19,22 @@ router.post("/", async (req, res) => {
 
     );
 
-    console.log(result[0].password)
-   
+    if (result[0] !== undefined) {
+        console.log(result[0].user_password)
+        bcrypt.compare(password, result[0].user_password, function (err, result) {
+            if (result == true) {
+                console.log("JIPPY");
+                res.render("dashboard.njk", {
 
-    // Load hash from your password DB.
-    bcrypt.compare(password, result[0].password, function (err, result) {
-        if (result == true) {
-            console.log("JIPPY");
+                })
+            } else {
+                console.log(":C"),
+                setTimeout(function(){
+                    location.reload();
+                }, 3000)
+            }
+        });
         }
-    });
-
-
-    bcrypt.compare(!password,!result[0].password, function (err, result) {
-        if(result == false) {console.log(":C")}
-    });
 
 })
 

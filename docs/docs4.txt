@@ -1,7 +1,12 @@
 2025-04-01
 
 **Anteckingar**
+När du ska gemföra saker gem server data bra att andvända samma namn i koden som i servern :)
+
 
 **Nya saker**
+Om du vill att din hemsida inte ska crasha när en 
+icke andvändare existerar så är det bara att skriva ( if (result[0] !== undefined) {"rester"} )
 
+ 
 **Minne**
