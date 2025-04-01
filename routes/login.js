@@ -24,17 +24,17 @@ router.post("/", async (req, res) => {
         bcrypt.compare(password, result[0].user_password, function (err, result) {
             if (result == true) {
                 console.log("JIPPY");
-                res.render("dashboard.njk", {
-
-                })
+                res.render("dashboard.njk", {})
             } else {
-                console.log(":C"),
-                setTimeout(function(){
-                    location.reload();
-                }, 3000)
+                console.log(":C");
+                res.render("login.njk", {
+                    title: "Logga in!",
+                    message: "Skriv in ditt användarnamn, email och lösenord för att logga in",
+                })
+
             }
         });
-        }
+    }
 
 })
 
