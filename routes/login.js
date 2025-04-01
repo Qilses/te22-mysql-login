@@ -19,27 +19,34 @@ router.post("/", async (req, res) => {
 
     );
 
-    if (result[0] !== undefined) {
-        console.log(result[0].user_password)
+    if (result[0] == undefined) {
+        res.render("login.njk", {
+            title: "Logga in!",
+            message: "Username or password wrong!",
+        })
+    } else {
         bcrypt.compare(password, result[0].user_password, function (err, result) {
             if (result == true) {
-                console.log("JIPPY");
                 res.render("dashboard.njk", {})
             } else {
-                console.log(":C");
                 res.render("login.njk", {
                     title: "Logga in!",
-                    message: "Skriv in ditt användarnamn, email och lösenord för att logga in",
+                    message: "Username or password wrong!",
                 })
 
             }
         });
     }
+}
 
-})
+)
 
-router.get("/test", (req, res) => {
+router.get("/newuser", (req, res) => {
     let user_password = "robin"
+    res.render("newuser.njk", {
+        title: "CREATE A NEW USER!",    
+        message:"Set a Username, password and a email to create a new user :)"
+    })
     bcrypt.hash(user_password, 10, function (err, hash) {
         // här får vi nu tag i lösenordets hash i variabeln hash
         console.log(hash)

@@ -1,8 +1,29 @@
 {% extends "layout.njk" %}
 {% block content %}
+<style>
+    body,html{
+        background-color: rgba(106,45,181,255);
+        color:rgba(122,245,0,255); 
+        display: grid;
+        grid-template-columns: auto;
+        grid-template-rows: auto;
+        
+    }
+    .container{
+        
+        
+       
+        justify-self: center;
+        
+        content: center;
+        height: auto;
+    }
+</style>
 <h1>Du har kommit rätt :D </h1>
 <p>{{users_login.user_name}}</p>
-
+<div class="container">
+<img src="/img/bjb.png" alt="bjbpng">
+</div>
     
 
 {% endblock %}
